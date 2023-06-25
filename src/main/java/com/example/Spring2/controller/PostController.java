@@ -1,10 +1,9 @@
 package com.example.Spring2.controller;
 
-import com.example.Spring2.dto.JwtRequest;
 import com.example.Spring2.entity.Post;
 import com.example.Spring2.service.PostService;
+import com.example.Spring2.service.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,9 +44,14 @@ public class PostController {
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deletePost(@PathVariable Long id) throws Exception {
+    public ResponseEntity<?> deletePost(@PathVariable Long id){
+        try{
+
         postService.deletepost(id);
         return new ResponseEntity<>("Post deleted successfully.", HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

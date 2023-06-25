@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.example.Spring2.dto.UserDTO;
 import com.example.Spring2.service.AuthService;
+import com.example.Spring2.service.AuthServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
