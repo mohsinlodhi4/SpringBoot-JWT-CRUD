@@ -37,6 +37,7 @@ public class AuthController {
         return authService.register(user);
     }
 
+    // Handles Validation Error messages 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(

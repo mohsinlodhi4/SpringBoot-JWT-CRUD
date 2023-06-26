@@ -46,9 +46,8 @@ public class PostController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deletePost(@PathVariable Long id){
         try{
-
-        postService.deletepost(id);
-        return new ResponseEntity<>("Post deleted successfully.", HttpStatus.OK);
+            postService.deletepost(id);
+            return new ResponseEntity<>("Post deleted successfully.", HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

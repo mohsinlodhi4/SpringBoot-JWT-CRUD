@@ -22,20 +22,23 @@ public class PostServiceImpl implements PostService {
     private UserRepository userRepository;
 
 
+//  Get All posts from db
     public List<Post> getPosts() {
         List<Post> posts = new ArrayList<>();
         postRepository.findAll().forEach(posts::add);
         return posts;
     }
+    // Get Specified User's Posts
     public List<Post> getpostByUserId(Long userId) {
         return postRepository.findByAuthorId(userId);
     }
 
+    // Get Single Post with specified id
     public Post getpostById(Long id) {
         return postRepository.findById(id).get();
     }
 
-
+    // Save Post in DB
     public Post insert(Post post) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByEmailIgnoreCase(email).get();
@@ -43,16 +46,18 @@ public class PostServiceImpl implements PostService {
         return postRepository.save(post);
     }
 
+    // Update post with specified Id 
     public Post updatepost(Long id, Post post) {
         Post postFromDb = postRepository.findById(id).get();
-        System.out.println(postFromDb.toString());
         postFromDb.setDescription(post.getDescription());
         postFromDb.setTitle(post.getTitle());
         post = postRepository.save(postFromDb);
         return post;
     }
 
+    // Delete post from Db
     public void deletepost(Long postId) throws Exception {
+        // Check if post exists
         Optional<Post> post = postRepository.findById(postId);
         if(post.isEmpty()){
             throw new Exception("Invalid Post ID");
@@ -60,6 +65,7 @@ public class PostServiceImpl implements PostService {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByEmailIgnoreCase(email).get();
 
+        // Check if post belongs to the user 
         if(post.get().getAuthor().getId() != user.getId()){
             throw new Exception("Unauthorized action");
         }

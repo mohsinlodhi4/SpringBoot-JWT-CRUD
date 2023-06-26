@@ -14,9 +14,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+// This interface will be implemented in AuthServiceImpl class and service interface will be autowired to controllers
 public interface AuthService {
 
-    public ResponseEntity login(String email, String password);
+    public ResponseEntity login(String email, String password); // takes in credentials and returns response entity
 
-    public ResponseEntity register(UserDTO userDTO);
+    public ResponseEntity register(UserDTO userDTO); // takes in user Data transfer object with all required and optional fields 
 }
